@@ -19,7 +19,7 @@ def msg_today_weather(cityname):
     wind = '· ' + weather['win'][0]+weather['win_speed']+'\n'
     ray = weather['index'][0]['desc']+'\n'
     blood = '· '+ weather['index'][2]['desc']
-    r = '早上好！【今日'+city_name+'天气】\n'+ '· 最高温度: '+high_tem+'度\n'+'· 最低温度: '+low_tem+'度\n'+wind+wea+'· 空气质>量: '+air_level+'· 紫外线: '+ray+'· 血糖影响: '+blood
+    r = '早上好！【今日'+cityname+'天气】\n'+ '· 最高温度: '+high_tem+'度\n'+'· 最低温度: '+low_tem+'度\n'+wind+wea+'· 空气质量: '+air_level+'· 紫外线: '+ray+'· 血糖影响: '+blood
     return r
 
 
