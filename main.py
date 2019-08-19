@@ -9,6 +9,8 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 #早上好
 moring = '早上好！'
+success_weather = '订阅成功！从明天开始,每天早上都会收到当天的天气提醒:)'
+
 #今日天气预报
 def msg_today_weather(cityname):
     weather = today_weather(cityname)
@@ -18,7 +20,7 @@ def msg_today_weather(cityname):
     wea = '· 有'+ weather['wea']+'\n'
     wind = '· ' + weather['win'][0]+weather['win_speed']+'\n'
     ray = weather['index'][0]['desc']+'\n'
-    blood = '· '+ weather['index'][2]['desc']
+    blood = weather['index'][2]['desc']
     r = '早上好！【今日'+cityname+'天气】\n'+ '· 最高温度: '+high_tem+'度\n'+'· 最低温度: '+low_tem+'度\n'+wind+wea+'· 空气质量: '+air_level+'· 紫外线: '+ray+'· 血糖影响: '+blood
     return r
 
@@ -56,7 +58,7 @@ if __name__ == '__main__':
 
     #定时任务
     sched = BackgroundScheduler()
-    sched.add_job(job,'cron',hour='6',minute='30')
+    sched.add_job(job,'cron',hour='7',minute='0')
     sched.start()
 
 
@@ -68,15 +70,17 @@ if __name__ == '__main__':
         name = msg.chat.name
         res = baidu_fenci_result(msg.text)
         col = Col()
+        print(res)
     
         if res['items'][2]['item'] == '天气' and res['items'][0]['item'] == '订阅':
             city_name =res['items'][1]['item']
-            #如果用户存在,更改订阅信息，回复当前天气  
+            #如果用户存在,更改订阅信息，回复当前天气 
+            print('用户',name,'刚刚订阅了',city_name,'的天气')
             u = col.find_user(uid)
             if u:
                 col.modify_city(uid,city_name)
                 w = msg_today_weather(city_name)
-                res = w + '\n'+'----------'+'\n'+'订阅成功，明天一早将收到天气提醒'
+                res = w + '\n'+'----------'+'\n'+success_weather
                 msg.reply(res)
 
             #如果用户不存在，询问查询城市
@@ -85,7 +89,7 @@ if __name__ == '__main__':
                 signup(uid,name,city_name)
 
                 w = msg_today_weather(city_name)
-                res = w + '\n'+'----------'+'\n'+'订阅成功，每天早上都会收到天气提醒'
+                res = w + '\n'+'----------'+'\n'+success_weather
                 msg.reply(res)
         else:
             res = '使用帮助：'+ '\n' + '订阅+城市名字+天气，例如：订阅北京天气'
