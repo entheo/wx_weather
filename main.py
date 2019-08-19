@@ -1,4 +1,5 @@
 from wxpy import *
+from datetime import date
 from api_weather import *
 from data import *
 from fenci import baidu_fenci_result
