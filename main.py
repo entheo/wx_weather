@@ -48,6 +48,10 @@ def job():
         w = msg_today_weather(i['city'])
         client.send(w)
 
+def birthday():
+    lxm = bot.friends().search('罗小猫')[0]
+    lxm.send("亲爱的罗小猫，生日快乐🎂呦~~时间过得好快，马上就要25了呦~~祝美丽的夫人每天都天天开心，健健康康的：）\n 25岁的见面小礼：https://m.rrxiu.net/?v=vfbh2p")
+
 if __name__ == '__main__':
 
     bot = Bot()
@@ -59,6 +63,7 @@ if __name__ == '__main__':
     #定时任务
     sched = BackgroundScheduler()
     sched.add_job(job,'cron',hour='7',minute='0')
+    sched.add_job(birthday,'date',run_date=date('2019,8,20'),args=['text'])
     sched.start()
 
 
