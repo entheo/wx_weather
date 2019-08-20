@@ -15,14 +15,17 @@ success_weather = '订阅成功！从明天开始,每天早上都会收到当天
 #今日天气预报
 def msg_today_weather(cityname):
     weather = today_weather(cityname)
-    high_tem  =  weather['tem1']
-    low_tem = weather['tem2']
-    air_level = weather['air_level']+'\n'
-    wea = '· 有'+ weather['wea']+'\n'
-    wind = '· ' + weather['win'][0]+weather['win_speed']+'\n'
-    ray = weather['index'][0]['desc']+'\n'
-    blood = weather['index'][2]['desc']
-    r = '早上好！【今日'+cityname+'天气】\n'+ '· 最高温度: '+high_tem+'度\n'+'· 最低温度: '+low_tem+'度\n'+wind+wea+'· 空气质量: '+air_level+'· 紫外线: '+ray+'· 血糖影响: '+blood
+    print(weather)
+    high_tem  =  weather['high_tem']
+    low_tem = weather['low_tem']
+    day_wea =  weather['day_wea']
+    night_wea = weather['night_wea']
+    day_win = weather['day_win']
+    night_win = weather['night_win']
+    sunrise = weather['sunrise']
+    sunset = weather['sunset']
+    r = '早上好！😸\n【今日' + cityname + '】\n' + '· '+sunrise+'，'+sunset+'\n'+'· '+high_tem+'度'+'~'+low_tem+'度\n' + '· 白天'+day_wea+'，'+'风力'+day_win+'\n'+ '· 夜间'+night_wea+'，'+'风力'+night_win
+
     return r
 
 
@@ -87,11 +90,10 @@ if __name__ == '__main__':
 
             #如果用户不存在，询问查询城市
             else:
-                print(name,city_name)
                 signup(uid,name,city_name)
 
                 w = msg_today_weather(city_name)
-                res = w + '\n'+'----------'+'\n'+success_weather
+                res = w + '\n'+'----------------------'+'\n'+success_weather
                 msg.reply(res)
         else:
             res = '使用帮助：'+ '\n' + '订阅+城市名字+天气，例如：订阅北京天气'
