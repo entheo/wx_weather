@@ -55,7 +55,7 @@ def job():
 
 if __name__ == '__main__':
 
-    bot = Bot(cache_path='wx_weather.pkl')
+    bot = Bot(cache_path=True, console_qr=True)
   
     #启动wxpy聊天对象特有ID
     bot.enable_puid()
