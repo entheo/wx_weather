@@ -55,7 +55,7 @@ def job():
 
 if __name__ == '__main__':
 
-    bot = Bot()
+    bot = Bot(cache_path='wx_weather.pkl')
   
     #启动wxpy聊天对象特有ID
     bot.enable_puid()
@@ -70,12 +70,12 @@ if __name__ == '__main__':
     @bot.register()
     def process_message(msg):
     
+        print(msg)
         #获取wxpy特有id
         uid = msg.chat.puid
         name = msg.chat.name
         res = baidu_fenci_result(msg.text)
         col = Col()
-        print(res)
     
         if res['items'][2]['item'] == '天气' and res['items'][0]['item'] == '订阅':
             city_name =res['items'][1]['item']
