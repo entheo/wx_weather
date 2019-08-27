@@ -4,7 +4,7 @@ from api_weather import *
 from data import *
 from fenci import baidu_fenci_result
 from apscheduler.schedulers.background import BackgroundScheduler
-
+import time
 
 
 
@@ -42,34 +42,45 @@ def user_info(uid):
     u = col.find_user(uid)
     return u
 
+def get_time():
+    now_t = time.localtime(time.time())
+    now = time.strftime('%Y-%m-%d %H:%M:%S',now_t)
+    return now
 
 #定义任务
 def job():
     col = Col()
-    clinets = []
+    
     for i in col.col.find():
         client = bot.friends().search(i['name'])[0]
         w = msg_today_weather(i['city'])
         client.send(w)
 
+def check_login():
+    now = get_time()
+    print('当前机器人登录情况：', bot.alive)
+    if not bot.alive:
+        print('下线了时间：',now)
+
 
 if __name__ == '__main__':
 
     bot = Bot(cache_path=True, console_qr=True)
+    print('机器人登录时间：',get_time())
   
     #启动wxpy聊天对象特有ID
     bot.enable_puid()
 
-
     #定时任务
     sched = BackgroundScheduler()
     sched.add_job(job,'cron',hour='7',minute='0')
+    sched.add_job(check_login,'interval',minutes=30)
     sched.start()
 
 
     @bot.register()
     def process_message(msg):
-    
+ 
         print(msg)
         #获取wxpy特有id
         uid = msg.chat.puid
