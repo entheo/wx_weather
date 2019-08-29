@@ -61,6 +61,8 @@ def check_login():
     print('当前机器人登录情况：', bot.alive)
     if not bot.alive:
         print('下线了时间：',now)
+        bot.core.auto_login('wxpy.pkl')
+        print('重新登录时间:',now)
 
 
 if __name__ == '__main__':
