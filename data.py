@@ -2,7 +2,7 @@ import pymongo
 
 class Data():
     def __init__(self):
-        self.client = pymongo.MongoClient('mongodb://localhost:27017')
+        self.client = pymongo.MongoClient('mongodb://root:2810033@localhost:27017')
         self.db = self.client['wx_weather']
 
 
