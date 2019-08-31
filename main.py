@@ -58,9 +58,8 @@ def job():
 
 def check_login():
     now = get_time()
-    print('当前机器人登录情况：', bot.alive)
     if not bot.alive:
-        print('下线了时间：',now)
+        print('下线时间：',now)
         bot.core.auto_login('wxpy.pkl')
         print('重新登录时间:',now)
 
@@ -76,7 +75,7 @@ if __name__ == '__main__':
     #定时任务
     sched = BackgroundScheduler()
     sched.add_job(job,'cron',hour='7',minute='0')
-    sched.add_job(check_login,'interval',minutes=30)
+    sched.add_job(check_login,'interval',minutes=5)
     sched.start()
 
 
