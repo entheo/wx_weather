@@ -4,7 +4,7 @@ class Data():
     def __init__(self):
         self.client = pymongo.MongoClient('mongodb://root:2810033@localhost:27017')
         self.db = self.client['wx_weather']
-        self.is_authorized = self.client.wx_weather.authenticate('entheo','2810033')
+        self.is_authorized = self.client.wx_weather.authenticate('weather','2810033')
 
 class Col(Data):
     def __init__(self):
